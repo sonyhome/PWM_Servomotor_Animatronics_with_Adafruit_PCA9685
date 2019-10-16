@@ -314,17 +314,17 @@ void runServoMotorStateMachine(uint8_t motorId)
 static void showMenu()
 {
   Serial.println("\nMenu:");
-  Serial.println("M - Menu");
   Serial.println("L - Left ear");
-  Serial.println("R - Right ear");
+  Serial.println("R - Right ear\n");
   Serial.println("D - Down");
   Serial.println("N - Neutral");
-  Serial.println("U - Up");
+  Serial.println("U - Up\n");
   Serial.println("B - Back");
   Serial.println("C - Center");
   Serial.println("F - Front");
-  Serial.println("T - Twitch"); // flick ear
-  Serial.println("W - wait 1s\n");
+  Serial.println("T - Twitch\n"); // flick ear
+  Serial.println("W - wait 1s");
+  Serial.println("M - Menu\n");
 }
 
 constexpr uint16_t WAIT_TICK = 10*ONE_SECOND;

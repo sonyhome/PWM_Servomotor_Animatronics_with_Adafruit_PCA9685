@@ -122,17 +122,20 @@ The menu allows you to control the ears to move them to specific positions. For 
     3: 210 245 280
     
     Menu:
-    M - Menu
     L - Left ear
     R - Right ear
+
     D - Down
     N - Neutral
     U - Up
+    
     B - Back
     C - Center
     F - Front
     T - Twitch
+    
     W - wait 1s
+    M - Menu
 
 At boot, the console shows the valid min/center/max positions available for each motor.
 The motors are paired-up, a pair can do up-neural-down and front-center-back.
