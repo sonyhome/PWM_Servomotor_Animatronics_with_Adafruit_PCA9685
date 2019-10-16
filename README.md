@@ -1,20 +1,14 @@
-# PWM_Servomotor_Animatronics_with_Adafruit_PCA9685
- Arduino sketches to tune and control PWM motors using Adafruits PCA9685, featherette or other I2C servo drivers
+# PWM Servo Motor Animatronics for Adafruit PCA9685
+ Arduino sketches to tune and control PWM motors using Adafruits PCA9685, featherette or other I2C servo shield, compatible with the Adafruit_PWMServoDriver library. Other libraries/control boards might be usable by swapping the library funtion calls.
 
 ---
 
 ## Overview
-Arduino program to manually set the range of motion of **PWM Servo Motors** using Serial port console inputs, for use with an Adafruit PWM servo shield. 
+These programs were written to find, test and validate the range of motion of PWM motors for animation of the Barbari lion animatronic costume head. The program is loaded on an [AdaFruit nRF52 Bluefruit LE](https://www.adafruit.com/product/3406) microcontroller board, but should work with any Arduino style board (I am testing on an UNO). The code builds on the Adafruit_PWMServoDriver library which can only support a subset of I2C PWM controller shields from Adafruit.
 
-This program can be useful for people who need to manually carefully adjust the range of motion of their motors for their project. It allows manually adjusting the limits of motion as the motor(s) move, so the range can be visually inspected for precise motion range.
+All motors can be turned on to move simultaneously, while receiving commands from the Serial console. When a motor is active, it updates the Serial console when it reaches the end of its range of motion.
 
----
-
-## History
-This program was written to test the range of animation for the Barbari lion animatronic motors, controlled by an [AdaFruit nRF52 Bluefruit LE board](https://www.adafruit.com/product/3406), but should work with any Arduino style board. By default this program can control simulataneously up to 8 motors. The menu allows to toggle motors on and off, set their motion range limit and the speed of the movement.
-All motors can be on and moving simultaneously, while receiving commands from the Serial console. When a motor is active, it updates the Serial console when it reaches the end of its range of motion.
-
-This program is also a good illustration of storing states to "do multiple things at the same time", which is something first time Arduino programmers struggle to do.
+The programs are also a good illustration of storing states to "do multiple things at the same time", which is something first time Arduino programmers struggle to do.
 
 ## Version
 1.0
@@ -22,20 +16,21 @@ This program is also a good illustration of storing states to "do multiple thing
 * October 2019 - 2_PWM_Servomotor_Positions, Initial version
 
 ## Requirements
-The program runs on Arduino with the Adafruit I2C PWM Servo shields ([PCA9685](https://www.adafruit.com/product/815), [Uno](https://www.adafruit.com/product/1411) or [FeatherWing](https://www.adafruit.com/product/2928)) and requires the following:
+The program use an Arduino micro-controller with the Adafruit I2C PWM Servo shields ([PCA9685](https://www.adafruit.com/product/815), [Uno](https://www.adafruit.com/product/1411) or [FeatherWing](https://www.adafruit.com/product/2928)) and requires the following:
 * Arduino compatible board (based on AVR, ARM, nRF... micro-controllers)
-* Serial console library (note AtTiny often don't support it)
+* Microcontroller must support the standard Serial console library (note AtTiny often don't support it)
 * [Adafruit_PWMServoDriver](https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library)
 
-It is expected you know how to install the necessary library in your Arduino IDE (see the library's how-to), as well as installing the board or controller you're using in your Arduino IDE, and know how to compile and load a program on your board/controller to be run, using the proper ISP.
-* copy the ino file into a directory with the same name as the file in your Arduino program directory (possibly *Documents/Arduino/Arduino_PWM_Servo_Motor_Range_Test*)
+It is expected you know how to install the necessary library in your Arduino IDE (see the library's how-to), as well as installing the board or controller you're using in your Arduino IDE, and know how to compile and load a program on your board/controller to be run, using the proper ISP. You're also expected to know how to wire the servo shield board and the motors.
+
+* copy the ino file into a directory with the same name as the file in your Arduino program directory (something like *Documents/Arduino/Arduino_PWM_Servo_Motor_Range_Test*)
 
 ## Licencing
 This program is available for use under the **MIT licence** which is the most common on GitHub, and has very few restrictions, so enjoy!
 
 ## General usage - Serial console
 
-This program relies on the Serial console for user inpu to control the motors.
+This program relies on the Serial console for user input to control the motors.
 
 1- Compile and load the sketch onto your Arduino compatible board
 2- Open the console in the Arduino IDE with the menu "Tools" "Serial Monitor"
@@ -46,11 +41,15 @@ This program relies on the Serial console for user inpu to control the motors.
 
 If no action is performed, no menu is displayed by the program, or no console window appears, you will need to debug what you did with the hardware.
 
+---
 # 1_PWM_Servomotor_Range_Scan sketch
 
-The purpose of this program is to help you find the movement range allowed for each motor by entering and tweaking the min and max values allowed for each PWM servo motor.
+## Overview
+Arduino program to manually set the range of motion of **PWM Servo Motors** using Serial port console inputs. 
 
-This program relies on the Serial console for user input.
+This program can be useful for people who need to manually and carefully adjust the range of motion of their motors for their project. It allows tweaking interactively the limits of motion as the motor(s) move, so the range can be visually tested for precise motion range.
+
+By default this program can control simulataneously up to 8 motors. The menu allows to toggle motors on and off, set their motion range limit and the speed of the movement.
 
 ## Serial console menu
 
@@ -90,20 +89,22 @@ Once all your min/max values are set, you can turn on all motors at once. The pr
 
 Once you're satisfied, you can print the current motor settings on the console, to save them for later use. That's the purpose of this sketch.
 
-
 ## Tweaking
 
-- You may have to change addresses in the code for the servos (default 0x40).
-- The initial motor position and ranges are set at the middle of the range, moving very little, and the delay pretty high so the motors move slow. You can change the hard-coded values to the values you recorded previously, especially if you're planning to re-load the sketch to fine tune your project later.
+* You may have to change addresses in the code for the servos (default 0x40).
+* The initial motor position and ranges are set at the middle of the range, moving very little, and the delay pretty high so the motors move slow. You can change the hard-coded values to the values you recorded previously, especially if you're planning to re-load the sketch to fine tune your project later.
 
 # Last words
 If you use these programs please leave me a comment, a star, requests, or even an issue on GitHub so that I know it is of use. I would appreciate also that if you make a project you mention it used or was inspired by my work, and link back to this GitHub.
 
 If you use GitHub, it is easy to "fork" this code, and enhance it. You can then request a merge back if your additions do not change the original intent of the sketches, but enhance or augment them, so that others can use them.
 
+---
 # 2_PWM_Servomotor_Positions
 
-The purpose of this sketch is to play with the different motor positions to help define "attitudes" of the animatronics costume head.
+## Overview
+
+Once you know the range of motion of your motors, they can be plugged into this sketch, to play with the different positions to help define "attitudes" of the animatronics costume head.
 
 The motors control 2 ears (2 motors per ear to down/up and move front/back). The goal is to test every resting position and define the set of valid positions for the ears, and name them based on what they represent (sad, angry, happy, attentive, etc.)
 
@@ -159,3 +160,7 @@ When the user gives commands, the dots and blinking stop. Instead the LED will t
 * If your motors have different limits, change their ranges in the sketch in SERVO_MOTOR_BOTTOM and SERVO_MOTOR_TOP.
 * If the motors are too slow or too fast, change LOOP_DELAY.
 * If you want more or less debug output on the console you can set DEBUG_VERBOSE_ON, DEBUG_STATE_ON, DEBUG_MENU_ON and DEBUG_ON to true or false.
+
+## Tweaking
+
+If you need to control more motors, you can update the arrays accordingly. However that's not sufficient. You must also update the menu with new options to send commands to these new motors.
