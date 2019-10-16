@@ -18,8 +18,8 @@ This program is also a good illustration of storing states to "do multiple thing
 
 ## Version
 1.0
-September 2019 - 1_PWM_Servomotor_Range_Scan, Initial version
-October 2019 - 2_PWM_Servomotor_Positions, Initial version
+* September 2019 - 1_PWM_Servomotor_Range_Scan, Initial version
+* October 2019 - 2_PWM_Servomotor_Positions, Initial version
 
 ## Requirements
 The program runs on Arduino with the Adafruit I2C PWM Servo shields ([PCA9685](https://www.adafruit.com/product/815), [Uno](https://www.adafruit.com/product/1411) or [FeatherWing](https://www.adafruit.com/product/2928)) and requires the following:
@@ -105,7 +105,7 @@ If you use GitHub, it is easy to "fork" this code, and enhance it. You can then 
 
 The purpose of this sketch is to play with the different motor positions to help define "attitudes" of the animatronics costume head.
 
-The motors control ears (2 motors per ear to down/up and move front/back). The goal is to test every resting position and define the set of valid positions for the ears, and name them based on what they represent (sad, angry, happy, attentive, etc.)
+The motors control 2 ears (2 motors per ear to down/up and move front/back). The goal is to test every resting position and define the set of valid positions for the ears, and name them based on what they represent (sad, angry, happy, attentive, etc.)
 
 The ear positions are defined in this spreadsheet, using motor positions that were defined using 1_PWM_Servomotor_Range_Scan:
 https://docs.google.com/spreadsheets/d/1kdY3KxZtphHCWXRy3MNVyo5G2VPGZbcAcurjgDs7uXk/edit?usp=sharing
@@ -114,3 +114,45 @@ https://docs.google.com/spreadsheets/d/1kdY3KxZtphHCWXRy3MNVyo5G2VPGZbcAcurjgDs7
 
 The menu allows you to control the ears to move them to specific positions. For example typing "LDBRDB[send]" would lower both ears in what would look like an angry position. Note that once a position is reached, the motors stop, until more commands are sent.
 
+   Positions 1.0 Oct 2019
+   Copyright (c) 2019 Dan Truong
+   0: 400 275 150
+   1: 220 250 280
+   2: 200 170 140
+   3: 210 245 280
+   
+   Menu:
+   M - Menu
+   L - Left ear
+   R - Right ear
+   D - Down
+   N - Neutral
+   U - Up
+   B - Back
+   C - Center
+   F - Front
+   T - Twitch
+   W - wait 1s
+
+At boot, the console shows the valid min/center/max positions available for each motor.
+The motors are paired-up, a pair can do up-neural-down and front-center-back.
+
+It is possible to insert waits in 1 second increments. A wait will start after the last motor ended its movement.
+If you enter multiple movements without waits, the motors will move at the same time.
+Unlike the first program, motors don't move until instructed to, and will stop once they reach the chosen position.
+
+For example, "LDBRDBWWLUFRUF" will move both ears down and back at the same time, wait 1s and then bring the ears up facing the front.
+"LDBWRDB" will move the left ear down and back, wait 1s and then move the right ear down and back.
+
+## Heartbeat
+
+Sometimes you can't tell if a program crashed, or if the console stopped responding.
+When there is no user input, this sketch will print a dot on the console every 10s. Furthermore, after 10s, the board's LED will start blinking.
+
+When the user gives commands, the dots and blinking stop. Instead the LED will turn on when a command is sent to a servo. That's very brief so the LED will look like it has a dim glow.
+
+## Debugging
+
+* If your motors have different limits, change their ranges in the sketch in SERVO_MOTOR_BOTTOM and SERVO_MOTOR_TOP.
+* If the motors are too slow or too fast, change LOOP_DELAY.
+* If you want more or less debug output on the console you can set DEBUG_VERBOSE_ON, DEBUG_STATE_ON, DEBUG_MENU_ON and DEBUG_ON to true or false.

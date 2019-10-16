@@ -47,8 +47,8 @@
 // THE SOFTWARE.
 ///////////////////////////////////////////////////////////////////////////////
 // Versions
-// 2_PWM_Servomotor_Positions 1.0 September 2019 - Initial release
-#define VERSION "1.0 Oct 2019"
+// 2_PWM_Servomotor_Positions 1.0 Oct 14, 2019 - Initial release
+#define VERSION "Positions 1.0 Oct 2019"
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <Wire.h>
