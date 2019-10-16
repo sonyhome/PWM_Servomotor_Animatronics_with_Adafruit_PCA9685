@@ -114,25 +114,25 @@ https://docs.google.com/spreadsheets/d/1kdY3KxZtphHCWXRy3MNVyo5G2VPGZbcAcurjgDs7
 
 The menu allows you to control the ears to move them to specific positions. For example typing "LDBRDB[send]" would lower both ears in what would look like an angry position. Note that once a position is reached, the motors stop, until more commands are sent.
 
-   Positions 1.0 Oct 2019
-   Copyright (c) 2019 Dan Truong
-   0: 400 275 150
-   1: 220 250 280
-   2: 200 170 140
-   3: 210 245 280
-   
-   Menu:
-   M - Menu
-   L - Left ear
-   R - Right ear
-   D - Down
-   N - Neutral
-   U - Up
-   B - Back
-   C - Center
-   F - Front
-   T - Twitch
-   W - wait 1s
+    Positions 1.0 Oct 2019
+    Copyright (c) 2019 Dan Truong
+    0: 400 275 150
+    1: 220 250 280
+    2: 200 170 140
+    3: 210 245 280
+    
+    Menu:
+    M - Menu
+    L - Left ear
+    R - Right ear
+    D - Down
+    N - Neutral
+    U - Up
+    B - Back
+    C - Center
+    F - Front
+    T - Twitch
+    W - wait 1s
 
 At boot, the console shows the valid min/center/max positions available for each motor.
 The motors are paired-up, a pair can do up-neural-down and front-center-back.
