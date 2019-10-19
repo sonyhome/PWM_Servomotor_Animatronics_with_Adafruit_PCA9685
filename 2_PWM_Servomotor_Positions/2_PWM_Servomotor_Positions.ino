@@ -432,10 +432,11 @@ static void runMenu()
     DEBUG_MENU_PRINT("R\n");
     isLeftEar = false;
     break;
+    
   case 'd':
     if (isLeftEar) {
-      DEBUG_MENU(isLeftEar, 2, down, toBottom);
-      servoMotorState[2] = toBottom;
+      DEBUG_MENU(isLeftEar, 5, down, toBottom);
+      //servoMotorState[2] = toBottom;
       servoMotorState[4] = toBottom;
       servoMotorState[5] = toBottom;
     } else {
@@ -445,8 +446,8 @@ static void runMenu()
     break;
   case 'n':
     if (isLeftEar) {
-      DEBUG_MENU(isLeftEar, 2, neutral, toCenter);
-      servoMotorState[2] = toCenter;
+      DEBUG_MENU(isLeftEar, 5, neutral, toCenter);
+      //servoMotorState[2] = toCenter;
       servoMotorState[5] = toCenter;
       servoMotorState[4] = toCenter;
     } else {
@@ -456,13 +457,16 @@ static void runMenu()
     break;
   case 'u':
     if (isLeftEar) {
-      DEBUG_MENU(isLeftEar, 2, up, toTop);
-      servoMotorState[2] = toTop;
+      DEBUG_MENU(isLeftEar, 5, up, toTop);
+      //servoMotorState[2] = toTop;
+      servoMotorState[4] = toTop;
+      servoMotorState[5] = toTop;
     } else {
       DEBUG_MENU(isLeftEar, 1, up, toTop);
       servoMotorState[1] = toTop;
     }
     break;
+    
   case 'b':
     if (isLeftEar) {
       DEBUG_MENU(isLeftEar, 3, back, toBottom);
@@ -501,6 +505,7 @@ static void runMenu()
     }
     break;
   // Ignore invalid menu choices
+  
   case 'w':
     DEBUG_MENU_PRINT("W\n");
     menuWait = WAIT_TIME;
@@ -582,6 +587,7 @@ void loop()
   // Control all the the motors
   for (uint8_t motorId = 0; motorId < NUM_SERVO_MOTORS; ++motorId)
   {
+    if (motorId == 2) continue; // don't send commands to #2 (debugging)
     runServoMotorStateMachine(motorId);
   }
   // Wait a millisecond at the end of the loop
