@@ -74,12 +74,12 @@
 Adafruit_PWMServoDriver servoMotors = Adafruit_PWMServoDriver(0x40);
 
 // You can lower this value if there's less than 8 motors. We use 4
-constexpr uint8_t NUM_SERVO_MOTORS = 4;
+constexpr uint8_t NUM_SERVO_MOTORS = 5;
 
 // Movement boundaries for each servo motor. This program only defines
 // 3 targets for a motor: bottom, center and top of its range of motion
-constexpr uint16_t SERVO_MOTOR_BOTTOM[NUM_SERVO_MOTORS] = {400, 220, 200, 210};
-constexpr uint16_t SERVO_MOTOR_TOP[NUM_SERVO_MOTORS]    = {150, 280, 140, 280};
+constexpr uint16_t SERVO_MOTOR_BOTTOM[NUM_SERVO_MOTORS] = {400, 220, 200, 210, 200};
+constexpr uint16_t SERVO_MOTOR_TOP[NUM_SERVO_MOTORS]    = {150, 280, 140, 280, 140};
 
 // Compute 1/2 way point of servo motor
 #define MIN(motorId) ((SERVO_MOTOR_BOTTOM[motorId] > SERVO_MOTOR_TOP[motorId]) ? \
@@ -94,11 +94,12 @@ constexpr uint16_t SERVO_MOTOR_CENTER[NUM_SERVO_MOTORS] ={
   SERVOMOTOR_CENTER_VALUE(0),
   SERVOMOTOR_CENTER_VALUE(1),
   SERVOMOTOR_CENTER_VALUE(2),
-  SERVOMOTOR_CENTER_VALUE(3)
+  SERVOMOTOR_CENTER_VALUE(3),
+  SERVOMOTOR_CENTER_VALUE(4), // Note: #2 assumed broken so duplicated to #4
 };
 
 // Sanity check that NUM_SERVO_MOTORS matches the configuration
-static_assert(NUM_SERVO_MOTORS == 4);
+static_assert(NUM_SERVO_MOTORS == 5);
 
 // Time in msec between each iteration
 // 2 = about 1/2 sec to perform the biggest move
@@ -126,13 +127,14 @@ uint16_t servoMotorsPosition[NUM_SERVO_MOTORS] = {
   SERVO_MOTOR_CENTER[0],
   SERVO_MOTOR_CENTER[1],
   SERVO_MOTOR_CENTER[2],
-  SERVO_MOTOR_CENTER[3]
+  SERVO_MOTOR_CENTER[3],
+  SERVO_MOTOR_CENTER[4]
 };
 
 // Current servo motor state
 // Motors stop moving when the target position is reached.
 servoMotorsStates servoMotorState[NUM_SERVO_MOTORS] = {
-  stopped, stopped, stopped, stopped
+  stopped, stopped, stopped, stopped, stopped
 };
 
 
@@ -436,6 +438,7 @@ static void runMenu()
     if (isLeftEar) {
       DEBUG_MENU(isLeftEar, 2, down, toBottom);
       servoMotorState[2] = toBottom;
+      servoMotorState[4] = toBottom;
     } else {
       DEBUG_MENU(isLeftEar, 1, down, toBottom);
       servoMotorState[1] = toBottom;
@@ -445,6 +448,7 @@ static void runMenu()
     if (isLeftEar) {
       DEBUG_MENU(isLeftEar, 2, neutral, toCenter);
       servoMotorState[2] = toCenter;
+      servoMotorState[4] = toCenter;
     } else {
       DEBUG_MENU(isLeftEar, 1, neutral, toCenter);
       servoMotorState[1] = toCenter;
@@ -555,11 +559,12 @@ void setup()
     Serial.print(" ");
     Serial.println(SERVO_MOTOR_TOP[motorId]);
     // Move to demo full range, then go to expected position
-    moveServoMotor(motorId, SERVO_MOTOR_BOTTOM[motorId]);
-    delay(500);
-    moveServoMotor(motorId, SERVO_MOTOR_TOP[motorId]);
-    delay(500);
+    //moveServoMotor(motorId, SERVO_MOTOR_BOTTOM[motorId]);
+    //delay(500);
+    //moveServoMotor(motorId, SERVO_MOTOR_TOP[motorId]);
+    //delay(500);
     moveServoMotor(motorId, servoMotorsPosition[motorId]);
+    delay(50);
   }
 
   showMenu();
